@@ -254,7 +254,8 @@ def get_token():
                else:
                    return InappropriateCharacterException(char)
             case 30:
-                return
+                location = buffer.scan_point.location
+                return set_char(tk.lexemn), location
             case 31:
                 char = buffer.next_char
 
@@ -267,7 +268,9 @@ def get_token():
                 else:
                     state = 32
             case 32:
-                return
+                location = buffer.scan_point.location
+                buffer.sync(handle_lookahead=True)
+                return set_int(tk.lexemn), location
             case 33:
                 char = buffer.next_char
 
@@ -285,7 +288,9 @@ def get_token():
                 else:
                     state = 35
             case 35:
-                return
+                location = buffer.scan_point.location
+                buffer.sync(handle_lookahead=True)
+                return set_frac(tk.lexemn), location
             case 36:
                 char = buffer.next_char
 
@@ -310,7 +315,9 @@ def get_token():
                 else:
                     state = 39
             case 39:
-                return
+                location = buffer.scan_point.location
+                buffer.sync(handle_lookahead=True)
+                return set_exp(tk.lexemn), location
             case 40:
                 location = buffer.scan_point.location
                 return common_symbol(buffer.sync()), location
