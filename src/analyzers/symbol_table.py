@@ -1,5 +1,7 @@
 import sys
 
+from utils.token import Token
+
 class entry_symbol_table:
     token_type: str
     lexemn: str
