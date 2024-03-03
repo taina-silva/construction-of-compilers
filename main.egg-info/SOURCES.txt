@@ -4,3 +4,13 @@ main.egg-info/PKG-INFO
 main.egg-info/SOURCES.txt
 main.egg-info/dependency_links.txt
 main.egg-info/top_level.txt
+src/__init__.py
+src/analyzers/__init__.py
+src/analyzers/lexical_analyzer.py
+src/exceptions/__init__.py
+src/exceptions/inappropriate_character_exception.py
+src/utils/__init__.py
+src/utils/buffer.py
+src/utils/point.py
+src/utils/symbol_table.py
+src/utils/token.py

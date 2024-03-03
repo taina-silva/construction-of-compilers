@@ -2,8 +2,8 @@ import sys
 
 from src.utils.buffer import Buffer
 from src.exceptions.inappropriate_character_exception import InappropriateCharacterException
-from src.utils.token import token as tk
-from src.analyzers import symbol_table
+from src.utils.token import Token as tk
+from src.utils import symbol_table
 
 buffer = Buffer(file=sys.argv[1])
 
