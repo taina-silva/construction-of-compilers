@@ -47,9 +47,9 @@ def get_token(file, tabela, l, c):
                 temp = char
                 if char.isalpha():
                     state = 2
-                elif char == ';':
-                    state = 4
                 elif char == ',':
+                    state = 4
+                elif char == ';':
                     state = 5
                 elif char == ':':
                     state = 6
@@ -58,27 +58,27 @@ def get_token(file, tabela, l, c):
                 elif char == '=':
                     state = 9
                 elif char == '<':
-                    state = 11
+                    state = 10
                 elif char == '>':
-                    state = 16
+                    state = 15
                 elif char == '+':
-                    state = 19
+                    state = 18
                 elif char == '-':
-                    state = 20
+                    state = 19
                 elif char == '*':
-                    state = 21
+                    state = 22
                 elif char == '/':
-                    state = 24
+                    state = 25
                 elif char == '^':
-                    state = 27
-                elif char == "'":
                     state = 28
+                elif char == "'":
+                    state = 29
                 elif char != None and char in '0123456789':
-                    state = 31
+                    state = 32
                 elif char == '(':
-                    state = 40
-                elif char == ')':
                     state = 41
+                elif char == ')':
+                    state = 42
                 elif char == ' ' or char == '\t' or char == '\n':
                     if char == '\n':
                         l+=1
@@ -87,7 +87,7 @@ def get_token(file, tabela, l, c):
                         c+=1
                     elif char == '\t':
                         c+=4
-                    state = 42
+                    state = 43
                 else:
                     raise Exception("Caracter Inválido")
             case 2:
@@ -122,17 +122,8 @@ def get_token(file, tabela, l, c):
             case 8:
                 state = 1
             case 9:
-                char = prox(file)
-                c += 1
-                if char != None: temp+=char 
-                else: temp+=" "
-                if char == '=':
-                    state = 10
-                else:
-                    raise Exception()
-            case 10:
                 return Token("relop", "EQ", l, c)
-            case 11:
+            case 10:
                 char = prox(file)
                 c += 1
                 if char != None: temp+=char 
@@ -144,152 +135,158 @@ def get_token(file, tabela, l, c):
                 elif char == '-':
                     state = 14
                 else:
-                    state = 21
+                    state = 11
+            case 11:
+                return Token("relop", "LT", l, c)
             case 12:
                 return Token("relop", "LE", l, c)
             case 13:
                 return Token("relop", "NE", l, c)
             case 14:
-                char = prox(file)
-                c += 1
-                if char != None: temp+=char 
-                else: temp+=" "
-                if char == '-':
-                    state = 15
-                else:
-                    raise Exception()
+                return Token("<-", None, l, c)
             case 15:
-                return Token("<--", None, l, c)
-            case 16:
                 char = prox(file)
                 c += 1
                 if char != None: temp+=char 
                 else: temp+=" "
                 if char == '=':
-                    state = 17
+                    state = 16
                 else:
-                    state = 18
-            case 17:
+                    state = 17
+            case 16:
                 return Token("relop", "GE", l, c)
-            case 18:
+            case 17:
                 if char != None: lookahead(file)
                 c -= 1
                 return Token("relop", "GT", l, c)
+            case 18:
+                 return Token("+", None, l, c)
             case 19:
-                return Token("+", None, l, c)
+                char = prox(file)
+                c += 1
+                if char != None: temp+=char
+                else: temp +=" "
+                if char == ">":
+                    state = 20
+                else:
+                    state = 21
             case 20:
-                return Token("-", None, l, c)
+                return Token("->", None, l, c)
             case 21:
+                if char != None: lookahead(file)
+                c -= 1
+                return Token("-", None, l, c)
+            case 22:
                 char = prox(file)
                 c += 1
                 if char != None: temp+=char 
                 else: temp+=" "
                 if char == '/':
-                    state = 22
-                else:
                     state = 23
-            case 22:
-                return Token("*/", None, l, c)
+                else:
+                    state = 24
             case 23:
+                return Token("*/", None, l, c)
+            case 24:
                 if char != None: lookahead(file)
                 c -= 1
                 return Token("*", None, l, c)
-            case 24:
+            case 25:
                 char = prox(file)
                 c += 1
                 if char != None: temp+=char 
                 else: temp+=" "
                 if char == '*':
-                    state = 25
-                else:
                     state = 26
+                else:
+                    state = 27
             case 25:
-                return Token("/*", None, l, c)
+                char = prox(file) 
+                c += 1
+                if char != None: temp+=char 
+                else: temp+=" "
+                if char == "*":
+                    state = 26
+                else:
+                    state = 27
             case 26:
+                return Token("/*", None, l, c)
+            case 27:
                 if char != None: lookahead(file)
                 c -= 1
                 return Token("/", None, l, c)
-            case 27:
-                return Token("^", None, l, c)
             case 28:
+                return Token("^", None, l, c)
+            case 29:
                 char = prox(file) 
                 c += 1
                 if char != None: temp+=char 
                 else: temp+=" "
                 if char != "'":
-                    state = 29
+                    state = 30
                 else:
                     raise Exception()
-            case 29:
+            case 30:
                 char = prox(file)
                 c += 1
                 if char != None: temp+=char 
                 else: temp+=" "
                 if char == "'":
-                    state = 30
+                    state = 31
                 else:
                     raise Exception()
-            case 30:
-                return Token("CONST_CHAR", temp, l, c)
             case 31:
+                return Token("CONST_CHAR", temp, l, c)
+            case 32:
                 char = prox(file)
                 c += 1
                 if char != None: temp+=char 
                 else: temp+=" "
                 if char != None and char in '0123456789':
-                    state = 31
+                    state = 33
                 elif char == '.':
-                        state = 33
+                        state = 34
                 elif char == 'E':
-                    state = 36
+                    state = 37
                 else:
-                        state = 32
-            case 32:
+                    state = 33
+            case 33:
                 if char != None: lookahead(file)
                 c -= 1
                 return Token("CONST_INT", temp[:-1], l, c)
-            case 33:
-                char = prox(file)
-                c += 1
-                if char != None: temp+=char 
-                else: temp+=" "
-                if char != None and char in '0123456789':
-                    state = 34
-                else:
-                    raise Exception()
             case 34:
                 char = prox(file)
                 c += 1
                 if char != None: temp+=char 
                 else: temp+=" "
                 if char != None and char in '0123456789':
-                    state = 34
-                elif char == 'E':
-                    state = 36
-                else:
                     state = 35
-            case 35:
-                if char != None: lookahead(file)
-                c -= 1
-                return Token("CONST_FRAC", temp[:-1], l, c)
-            case 36:
-                char = prox(file)
-                c += 1
-                if char != None: temp+=char 
-                else: temp+=" "
-                if char == '+-':
-                    state = 37
-                elif char != None and char in '0123456789':
-                    state = 38
                 else:
                     raise Exception()
-            case 37:
+            case 35:
                 char = prox(file)
                 c += 1
                 if char != None: temp+=char 
                 else: temp+=" "
                 if char != None and char in '0123456789':
+                    state = 35
+                elif char == 'E':
+                    state = 37
+                else:
+                    state = 36
+            case 36:
+                if char != None: lookahead(file)
+                c -= 1
+                return Token("CONST_FRAC", temp[:-1], l, c)
+            case 37:
+                char = prox(file)
+                c += 1
+                if char != None: temp+=char 
+                else: temp+=" "
+                if char == '+-':
                     state = 38
+                elif char != None and char in '0123456789':
+                    state = 39
                 else:
                     raise Exception()
             case 38:
@@ -298,18 +295,27 @@ def get_token(file, tabela, l, c):
                 if char != None: temp+=char 
                 else: temp+=" "
                 if char != None and char in '0123456789':
-                    state = 38
-                else:
                     state = 39
+                else:
+                    raise Exception()
             case 39:
+                char = prox(file)
+                c += 1
+                if char != None: temp+=char 
+                else: temp+=" "
+                if char != None and char in '0123456789':
+                    state = 39
+                else:
+                    state = 40
+            case 40:
                 if char != None: lookahead(file)
                 c -= 1
                 return Token("CONST_EXP", temp[:-1], l, c)
-            case 40:
-                return Token("(", None, l, c)
             case 41:
-                return Token(")", None, l, c)
+                return Token("(", None, l, c)
             case 42:
+                return Token(")", None, l, c)
+            case 43:
                 char = prox(file)
                 c += 1
                 if char != None: temp+=char 
@@ -322,10 +328,10 @@ def get_token(file, tabela, l, c):
                         c+=1
                     elif char == '\t':
                         c+=4
-                    state = 42
-                else:
                     state = 43
-            case 43:
+                else:
+                    state = 44
+            case 44:
                 if char != None: lookahead(file)
                 c -= 1
                 state = 1 
