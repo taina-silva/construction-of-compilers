@@ -1,14 +1,14 @@
-from Token import Token  # Certifique-se de importar o módulo Token, se necessário
+from Token import Token  
 
 class LinhaTabelaSimbolos(object):
-    def __init__(self, token, lexema, valor, tipo_dado):
-        self.token = token
+    def __init__(self, nome, lexema, valor, tipo_dado):
+        self.nome = nome
         self.lexema = lexema 
         self.valor = valor 
         self.tipo_dado = tipo_dado
 
     def printarLinha(self):
-        print (f"{self.token}, {self.lexema}, {self.valor}, {self.tipo_dado}")
+        print (f"{self.nome}, {self.lexema}, {self.valor}, {self.tipo_dado}")
 
 class TabelaDeSimbolos(object):
     def __init__(self):
@@ -24,25 +24,23 @@ class TabelaDeSimbolos(object):
             LinhaTabelaSimbolos("int", "int", None, None),
             LinhaTabelaSimbolos("char", "char", None, None),
             LinhaTabelaSimbolos("float", "float", None, None),
-            LinhaTabelaSimbolos("+", "+", None, None),
-            LinhaTabelaSimbolos("-", "-", None, None),
-            LinhaTabelaSimbolos("*", "*", None, None),
-            LinhaTabelaSimbolos("/", "/", None, None),
-            LinhaTabelaSimbolos("/*", "*/", None, None),
-            LinhaTabelaSimbolos("<--", "<--", None, None),
-            LinhaTabelaSimbolos("^", "^", None, None),
-            LinhaTabelaSimbolos(",", ",", None, None),
-            LinhaTabelaSimbolos(";", ";", None, None),
-            LinhaTabelaSimbolos(":", ":", None, None)
         ]
     
     def adiciona_linha(self, linha_tabela_simbolos):
         self.linhas.append(linha_tabela_simbolos)
 
     def adiciona_token(self, token):
-        if token not in [linha.token for linha in self.linhas]:
-            nova_linha = LinhaTabelaSimbolos(token, None, None, None)
+        # Cria uma nova linha com o token fornecido
+        nova_linha = LinhaTabelaSimbolos(token.nome, token.atributo, None, None)
+        
+        # Verifica se o token e seu atributo não estão presentes em nenhuma linha existente
+        if not any(nova_linha.nome == linha.nome and nova_linha.lexema == linha.lexema for linha in self.linhas):
+            # Adiciona a nova linha à tabela de símbolos
             self.linhas.append(nova_linha)
 
     def prox_linha(self):
         return len(self.linhas)
+    
+    def printarTabela(self):
+        for linha in self.linhas:
+            linha.printarLinha()

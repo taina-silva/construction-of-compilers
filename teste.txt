@@ -1,7 +1,7 @@
 programa nomeprograma() /*
-    int idade <- 30;
-    char letra;
-    float numero <- 20.0;
+    int -> idade<- 30, num <-40;
+    char -> letra;
+    float -> numero <- 20.0;
     print(numero*idade) 
 
     se (idade > 20) /*

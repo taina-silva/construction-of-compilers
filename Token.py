@@ -1,10 +1,14 @@
 class Token(object):
 
-    def __init__(self, nome, atributo, linha, coluna_inicial):
+    def __init__(self, nome, atributo, posicoes):
         self.nome = nome
         self.atributo = atributo
-        self.linha = linha
-        self.coluna = abs(coluna_inicial) 
+        self.linha = posicoes[0] # Linha
+        if atributo == None:
+            #print(posicoes[1], " ", len(nome))
+            self.coluna = posicoes[1]-len(nome) # Coluna
+        else:
+            self.coluna = posicoes[1]-len(atributo) # Coluna
 
     def printToken(self):
         if self.atributo == None:
