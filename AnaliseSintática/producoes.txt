@@ -1,0 +1,35 @@
+<vazio>
+programa ID ( ) <bloco>
+/* <declaracao_vars> <comandos> */
+<declaracao_var> <declaracao_vars>
+<tipo> -> <lista_ids> ;
+int
+char
+float
+ID <lista_ids'>
+, ID <lista_ids'>
+<comando> <comandos>
+<comando_atribuicao>
+<comando_repeticao1>
+<comando_repeticao2>
+<comando_selecao>
+ID <- <expressao> ;
+enquanto ( <condicao> ) faca <comando_ou_bloco>
+repita <comando_ou_bloco> ate ( <condicao> ) ;
+se ( <condicao> ) entao <comando_ou_bloco> <comando_selecao'>
+senao <comando_ou_bloco>
+<comando>
+<bloco>
+<expressao> relop <expressao>
+<termo> <expressao'>
++ <termo> <expressao'>
+- <termo> <expressao'>
+<expo> <termo'>
+* <expo> <termo'>
+/ <expo> <termo'>
+<fator> <expo'>
+∧ <fator> <expo'>
+( <expressao> )
+CONST_CHAR
+CONST_NUM
+ID
