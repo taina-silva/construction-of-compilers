@@ -15,13 +15,14 @@ programa nomeprograma() /*
     */
     senao 
         teste <- teste * 2;
-    
+        teste <- teste - 1;
+
     enquanto (idade <= 20) faca /*
         idade <- idade + 1;
     */
 
     repita 
-        idade <- idade - 1;
+        idade <- idade ^ 2;
     ate (idade >= 40);
 
     se (idade = 40) entao

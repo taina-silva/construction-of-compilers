@@ -1,5 +1,3 @@
-from Token import Token  
-
 class LinhaTabelaSimbolos(object):
     def __init__(self, nome, lexema, valor, tipo_dado):
         self.nome = nome

@@ -1,5 +1,4 @@
-from AnalisadorLexico import *
-
+from AnaliseLéxica.AnalisadorLexico import *
 
 def list_to_matrix(conteudo):
     matriz = []
@@ -20,7 +19,8 @@ def read(nome_arquivo):
     with open(nome_arquivo, 'r') as file:
         conteudo = list(file.read())
     conteudo = list_to_matrix(conteudo)
+    
     return conteudo
 
 if __name__ == "__main__":
-    get_tokens(read("../teste.txt"))
+    get_tokens(read("teste.txt"))

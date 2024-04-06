@@ -28,7 +28,7 @@ senao <comando_ou_bloco>
 * <expo> <termo'>
 / <expo> <termo'>
 <fator> <expo'>
-∧ <fator> <expo'>
+^ <fator> <expo'>
 ( <expressao> )
 CONST_CHAR
 CONST_NUM

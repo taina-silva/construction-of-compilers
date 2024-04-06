@@ -1,5 +1,8 @@
-from Token import *
-from TabelaDeSimbolos import TabelaDeSimbolos
+import sys
+import os
+
+from AnaliseLéxica.Token import *
+from AnaliseLéxica.TabelaDeSimbolos import *
 
 
 def get_tokens(conteudo):
@@ -11,13 +14,13 @@ def get_tokens(conteudo):
     while(True):
         tk = get_token(conteudo, tabela, p)
         lista_tokens.append(tk)
-        #tk.printToken()
 
         if tk.nome == "EOF":
             break
     
-    #print("-----------------Tabela de símbolos-----------------")
-    #tabela.printarTabela()
+    # print("-----------------Tabela de símbolos-----------------")
+    # tabela.printarTabela()
+        
     return lista_tokens, tabela
 
 def getKeyWord(tabela, lexema):

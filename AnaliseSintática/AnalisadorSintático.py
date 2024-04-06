@@ -1,5 +1,5 @@
 from treelib import Node, Tree
-from TabelaPreditiva import *
+from AnaliseSintática.TabelaPreditiva import *
 
 def downloadTree(tree):
     for node in tree.all_nodes():
@@ -26,7 +26,7 @@ def trata_producao(arvore, tabelas, P, X, nome_token):
             #downloadTree(arvore)
             
             P.append(producao)
-    print("---------------------")
+    print("\n---------------------\n")
 
 def get_nodes(lista_tokens, tabela_simbolos, lista_producoes, nome_tag):
     arvore = Tree()
@@ -40,23 +40,36 @@ def get_nodes(lista_tokens, tabela_simbolos, lista_producoes, nome_tag):
     P.append(tag_inicial)    
 
     while(len(P) > 0):
-        printar_tags(P)
+        # printar_tags(P)
+        
         X = P[-1] # Topo(P)
         token_atual = lista_tokens[pos_token]
         nome_token = token_atual.nome
+
+        print("\n")
+        print(nome_token)
+        print(X.tag)
+        print("\n")
+
         if X.eh_terminal:
             if X.tag == nome_token:
                 P.pop()
                 pos_token += 1 # Próximo Token
             else:
+                print("\n")
                 print(nome_token)
                 print(X.tag)
-                raise Exception("Não existe essa produção1")
+                print("\n")
+
+                raise Exception("Não existe essa produção!")
         else:
             if nome_token not in tabelas.tabela_preventivas[X.tag]:
+                print("\n")
                 print(nome_token)
                 print(X.tag)
-                raise Exception("Não existe essa produção2")   
+                print("\n")
+
+                raise Exception("Não existe essa produção!")   
             else:
                 P.pop()
                 trata_producao(arvore, tabelas, P, X, nome_token)
