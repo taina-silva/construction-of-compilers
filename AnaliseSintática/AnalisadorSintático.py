@@ -1,13 +1,6 @@
 from treelib import Node, Tree
 from AnaliseSintática.TabelaPreditiva import *
 
-def downloadTree(tree):
-    for node in tree.all_nodes():
-        node.data = str(node.data.tag)
-
-    tree.save2file("arvore.txt")
-
-
 def printar_tags(P):
     print("################")
     for producao in P:
@@ -33,7 +26,6 @@ def trata_producao(arvore, tabelas, P, X, nome_token):
             # Adiciona na pilha          
             P.append(tag_atual)
 
-    #printar_tags(P)
 
 def get_nodes(lista_tokens, lista_producoes, nome_tag):
     arvore = Tree()
@@ -44,7 +36,6 @@ def get_nodes(lista_tokens, lista_producoes, nome_tag):
     arvore.add_node(node)
     tabelas = Tabelas(lista_producoes)
 
-    
     pos_token = 0
     P = [] # Pilha
     P.append(tag_inicial)    
@@ -82,7 +73,10 @@ def get_nodes(lista_tokens, lista_producoes, nome_tag):
     if pos_token+1 != len(lista_tokens):
         raise Exception("Nao foi verificado todos os tokens")
     
-    downloadTree(arvore)
+    with open("arvore.txt", "w"):
+        pass
+
+    arvore.save2file("arvore.txt",data_property='tag')
     return arvore
             
 

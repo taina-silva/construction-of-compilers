@@ -1,0 +1,36 @@
+programa nomeprograma() /*
+    int -> idade, num;
+    char -> letra;
+    float -> numero, teste;
+    
+    idade<- 300;
+    num <-40;
+    letra <- 'a';
+    numero <- 20.0; teste <- 22E-20;
+    numero <- (letra*numero) + ( (num-letra) / (teste ^ 2) );
+
+    % Verifica se idade é maior que 20 %
+    se (idade > 30) entao /*
+        teste <- teste / 2;
+    */
+    senao 
+        teste <- teste * 2;
+
+    enquanto (idade <= 20) faca /*
+        idade <- idade + 1;
+    */
+
+    repita 
+        idade <- idade;
+    ate (idade >= 40);
+
+    se (idade = 40) entao
+        idade <- 50;
+
+    se (idade > 40) entao
+        idade <- 30;
+
+    se (idade <> 40) entao
+        idade <- 100;
+
+*/
