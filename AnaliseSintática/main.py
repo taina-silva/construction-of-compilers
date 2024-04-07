@@ -37,8 +37,6 @@ if __name__ == "__main__":
     nome_tag = "<inicio>"
 
     lista_tokens, tabela_simbolos = get_tokens(read("teste.txt"))
-    lista_producoes = ListProducoes("AnaliseSintática/producoes.txt")
+    lista_producoes = ListProducoes("producoes.txt")
 
-    print(lista_tokens)
-
-    get_nodes(lista_tokens, tabela_simbolos, lista_producoes, nome_tag)
+    get_nodes(lista_tokens, lista_producoes, nome_tag)

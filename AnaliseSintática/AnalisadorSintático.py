@@ -3,16 +3,16 @@ from AnaliseSintática.TabelaPreditiva import *
 
 def downloadTree(tree):
     for node in tree.all_nodes():
-        print(node.data)
-        node.data = node.data.tag
+        node.data = str(node.data.tag)
+
     tree.save2file("arvore.txt")
 
 
 def printar_tags(P):
-    print("\n################")
+    print("################")
     for producao in P:
         print(producao.tag)
-    print("################\n")
+    print("################")
 
 def trata_producao(arvore, tabelas, P, X, nome_token):
     nome_producao = tabelas.tabela_preventivas[X.tag][nome_token]
@@ -20,27 +20,36 @@ def trata_producao(arvore, tabelas, P, X, nome_token):
 
     for producao in reversed(lista_producoes):
         if producao.tag != "<vazio>":
-            #node = Node(data=producao)
-            #producao.identificador = node.identifier
-            #arvore.add_node(node, parent=X.identificador)
-            #downloadTree(arvore)
-            
-            P.append(producao)
-    print("\n---------------------\n")
+            tag_atual = Tag(producao.tag, producao.eh_terminal)
+            # Criação nó da árvore
+            node = Node()
 
-def get_nodes(lista_tokens, tabela_simbolos, lista_producoes, nome_tag):
+            # Identificador do nó
+            tag_atual.identificador = node.identifier
+            node.data = tag_atual
+
+            # Adiciona nó no pai X
+            arvore.add_node(node, parent=X.identificador)  
+            # Adiciona na pilha          
+            P.append(tag_atual)
+
+    #printar_tags(P)
+
+def get_nodes(lista_tokens, lista_producoes, nome_tag):
     arvore = Tree()
     tag_inicial = Tag(nome_tag, False)
-    node = arvore.create_node(data=tag_inicial)
+    node = Node()
     tag_inicial.identificador = node.identifier
+    node.data = tag_inicial
+    arvore.add_node(node)
     tabelas = Tabelas(lista_producoes)
 
+    
     pos_token = 0
     P = [] # Pilha
     P.append(tag_inicial)    
 
     while(len(P) > 0):
-        printar_tags(P)
         
         X = P[-1] # Topo(P)
         token_atual = lista_tokens[pos_token]
@@ -73,7 +82,7 @@ def get_nodes(lista_tokens, tabela_simbolos, lista_producoes, nome_tag):
     if pos_token+1 != len(lista_tokens):
         raise Exception("Nao foi verificado todos os tokens")
     
-    arvore.save2file("arvore.txt")
+    downloadTree(arvore)
     return arvore
             
 
