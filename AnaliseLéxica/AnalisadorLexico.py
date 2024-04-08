@@ -101,7 +101,7 @@ def get_token(file, tabela, p):
                         p[1] += 3
                     state = 43
                 else:
-                    raise Exception("Caracter Inválido")
+                    raise Exception(f"Caracter invalido: {char}, na linha {p[0]} e coluna {p[1]}")
             case 2:
                 char = prox(file, p) 
                 p[1] += 1
@@ -217,7 +217,7 @@ def get_token(file, tabela, p):
                 if char != "'":
                     state = 30
                 else:
-                    raise Exception("Esperado valor diferente de '")
+                    raise Exception(f"Esperado caracter diferente de ', na linha {p[0]} e coluna {p[1]}")
             case 30:
                 char = prox(file, p)
                 p[1] += 1
@@ -225,7 +225,7 @@ def get_token(file, tabela, p):
                 if char == "'":
                     state = 31
                 else:
-                    raise Exception("Esperado '")
+                    raise Exception(f"Caracter {char} diferente de ', na linha {p[0]} e coluna {p[1]}")
             case 31:
                 tabela.adiciona_token("CONST_CHAR", temp, temp, "char")
                 return Token("CONST_CHAR", temp, p)
@@ -252,7 +252,7 @@ def get_token(file, tabela, p):
                 if isFunction(char, str.isnumeric):
                     state = 35
                 else:
-                    raise Exception("Esperado um digito")
+                    raise Exception(f"Caracter {char} nao eh um digito, na linha {p[0]} e coluna {p[1]}")
             case 35:
                 char = prox(file, p)
                 p[1] += 1
@@ -276,7 +276,7 @@ def get_token(file, tabela, p):
                 elif isFunction(char, str.isnumeric):
                     state = 39
                 else:
-                    raise Exception("Esperado um digito")
+                    raise Exception(f"Caracter {char} nao eh um digito ou um sinal, na linha {p[0]} e coluna {p[1]}")
             case 38:
                 char = prox(file, p)
                 p[1] += 1
@@ -284,7 +284,7 @@ def get_token(file, tabela, p):
                 if isFunction(char, str.isnumeric):
                     state = 39
                 else:
-                    raise Exception("Esperado um digito")
+                    raise Exception(f"Caracter {char} nao eh um digito, na linha {p[0]} e coluna {p[1]}")
             case 39:
                 char = prox(file, p)
                 p[1] += 1
@@ -320,4 +320,4 @@ def get_token(file, tabela, p):
                 p[1] += 1
                 state = 1 
             case _:
-                raise Exception("Estado "+ str(state)+ " inválido")
+                raise Exception(f"Estado {state} inválido")

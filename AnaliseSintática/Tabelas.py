@@ -12,7 +12,7 @@ class Tabelas(object):
             for p in lp[1]:
                 self.tabela_producoes[lp[0]].append(Tag(p[0], p[1]))
                 
-        self.tabela_preventivas = {
+        self.tabela_preditiva = {
             "<inicio>": {"programa": "P2"},
             "<bloco>": {"/*": "P3"},
             "<declaracao_vars>": {"int": "P4", "float": "P4", "char": "P4", "ID": "P1", "enquanto": "P1", "repita": "P1", "se": "P1", "*/": "P1"},

@@ -2,7 +2,7 @@ programa nomeprograma() /*
     int -> idade, num;
     char -> letra;
     float -> numero, teste;
-    
+
     idade<- 300;
     num <-40;
     letra <- 'a';

@@ -1,5 +1,5 @@
 from treelib import Node, Tree
-from AnaliseSintática.TabelaPreditiva import *
+from AnaliseSintática.Tabelas import *
 
 def printar_tags(P):
     print("################")
@@ -8,7 +8,7 @@ def printar_tags(P):
     print("################")
 
 def trata_producao(arvore, tabelas, P, X, nome_token):
-    nome_producao = tabelas.tabela_preventivas[X.tag][nome_token]
+    nome_producao = tabelas.tabela_preditiva[X.tag][nome_token]
     lista_producoes = tabelas.tabela_producoes[nome_producao]
 
     for producao in reversed(lista_producoes):
@@ -51,20 +51,10 @@ def get_nodes(lista_tokens, lista_producoes, nome_tag):
                 P.pop()
                 pos_token += 1 # Próximo Token
             else:
-                print("\n")
-                print(nome_token)
-                print(X.tag)
-                print("\n")
-
-                raise Exception("Não existe essa produção!")
+                raise Exception(f"Token {nome_token} nao corresponde ao Token esperado: {X.tag}")
         else:
-            if nome_token not in tabelas.tabela_preventivas[X.tag]:
-                print("\n")
-                print(nome_token)
-                print(X.tag)
-                print("\n")
-
-                raise Exception("Não existe essa produção!")   
+            if nome_token not in tabelas.tabela_preditiva[X.tag]:
+                raise Exception(f"Token {nome_token} nao esta presente na tabela preditiva para a Tag {X.tag}")   
             else:
                 P.pop()
                 trata_producao(arvore, tabelas, P, X, nome_token)
